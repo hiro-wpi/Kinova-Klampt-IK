@@ -23,6 +23,10 @@ If you only need the IK module, having python API is enough. If you need more ot
 
 ## Running
 
+#### Core Class
+
+The main component is written in the `KinovaGen3IK` class in `kinova_gen3_ik.py` file. If you don't need ROS, you could ignore the following parts and only use this class. An example is given in the end of the code. The `solve_ik` function takes position or postion+orientation as input, and output the reachability and 7 joint angles.
+
 #### Launch the codes
 
 `roslaunch kinova_klampt_ik kinova_gen3_ik.launch`
