@@ -38,16 +38,19 @@ class KinovaGen3Command():
     def ik_callback(self, data):
         # Get result
         res, angles = data.data[7], data.data[0:7]
-        self.convert_and_pub(angles)
+        self.convert_and_pub(angles, res)
         
     def vel_ik_callback(self, data):
         # Get result
         res, angles = data.data[7], data.data[0:7]
-        self.convert_and_pub(angles)
+        self.convert_and_pub(angles, res)
     
-    def convert_and_pub(self, angles):
+    def convert_and_pub(self, angles, res=1):
         # Convert angles array to 7 Float64 
         # and publish them seperately
+        if res == 0.0:
+            # This is not a valid solution
+            return
         for i in range(7):
             self.joint_messages[i].data = angles[i]
             self.joint_pubs[i].publish(self.joint_messages[i])

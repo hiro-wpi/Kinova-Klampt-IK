@@ -14,6 +14,8 @@ class KinovaGen3VelIKNode():
         # subscribe to keyboard input
         self.link_sub = rospy.Subscriber("kinova_gen3_vel_ik/set_ik_link", 
                                          String, self.link_callback)
+        self.ang_sub = rospy.Subscriber("kinova_gen3_vel_ik/set_current_angles", 
+                                        Float64MultiArray, self.angles_callback)                                 
         self.pose_sub = rospy.Subscriber("kinova_gen3_vel_ik/set_current_pose", 
                                          Pose, self.pose_callback)
         self.twist_sub = rospy.Subscriber("kinova_gen3_vel_ik/cmd_vel",
@@ -32,6 +34,11 @@ class KinovaGen3VelIKNode():
         # IK model
         self.kinova_ik = KinovaGen3IK()
 
+
+    def angles_callback(self, data):
+        # Set current angles
+        angles = data.data
+        self.kinova_ik.set_angles(angles)
 
     def pose_callback(self, data):
         # Set current pose
