@@ -1,0 +1,29 @@
+<launch>
+    <!-- IK Solver -->
+    <node name="kinova_gen3_ik" type="kinova_gen3_ik_node.py" 
+          pkg="kinova_klampt_ik" output="screen"/>
+    <node name="kinova_gen3_vel_ik" type="kinova_gen3_vel_ik_node.py" 
+          pkg="kinova_klampt_ik" output="screen">
+    </node>
+
+    <!-- To Kinova API -->
+    <arg name="prefix" default=""/>
+    <node name="kinova_gen3_command" type="kinova_gen3_command.py" 
+          pkg="kinova_klampt_ik" output="screen">
+        <remap from="joint_1_position_controller/command" 
+               to="$(arg prefix)joint_1_position_controller/command"/>
+        <remap from="joint_2_position_controller/command" 
+               to="$(arg prefix)joint_2_position_controller/command"/>
+        <remap from="joint_3_position_controller/command" 
+               to="$(arg prefix)joint_3_position_controller/command"/>
+        <remap from="joint_4_position_controller/command" 
+               to="$(arg prefix)joint_4_position_controller/command"/>
+        <remap from="joint_5_position_controller/command" 
+               to="$(arg prefix)joint_5_position_controller/command"/>
+        <remap from="joint_6_position_controller/command" 
+               to="$(arg prefix)joint_6_position_controller/command"/>
+        <remap from="joint_7_position_controller/command" 
+               to="$(arg prefix)joint_7_position_controller/command"/>
+    </node>
+    
+</launch>
